@@ -1,5 +1,5 @@
 [package]
-name = "nes_rest"
+name = "nes_tools"
 version = "0.1.0"
 edition = "2021"
 

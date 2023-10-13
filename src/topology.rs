@@ -40,6 +40,7 @@ pub struct Topology {
 }
 
 pub fn get_topology() -> Result<Topology, Box<dyn std::error::Error>> {
+    //todo allow setting the url
     let mut res = reqwest::blocking::get("http://127.0.0.1:8081/v1/nes/topology").unwrap();
     let mut body = String::new();
     res.read_to_string(&mut body)?;
