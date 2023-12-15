@@ -8,16 +8,17 @@ pub fn add(left: usize, right: usize) -> usize {
     left + right
 }
 
-pub fn get_mobile_nodes() -> () /*std::vec::Vec<>*/ {
-    let mut res =
-        reqwest::blocking::get("http://127.0.0.1:8081/v1/nes/location/allMobile").unwrap();
-    let mut body = String::new();
-    res.read_to_string(&mut body).unwrap();
+// pub fn get_mobile_nodes() -> () /*std::vec::Vec<>*/ {
+//     let mut res =
+//         reqwest::blocking::get("http://127.0.0.1:8081/v1/nes/location/allMobile").unwrap();
+//     let mut body = String::new();
+//     res.read_to_string(&mut body).unwrap();
+//
+//     println!("Status: {}", res.status());
+//     println!("Headers:\n{:#?}", res.headers());
+//     println!("Body:\n{}", body);
+// }
 
-    println!("Status: {}", res.status());
-    println!("Headers:\n{:#?}", res.headers());
-    println!("Body:\n{}", body);
-}
 
 #[cfg(test)]
 mod tests {
@@ -57,6 +58,33 @@ mod tests {
 
         coordinator.kill().expect("TODO: panic message");
         worker.kill().expect("TODO: panic message");
+    }
+
+    #[test]
+    fn test_getting_topology_with_client() {
+        // let mut coordinator = coordinator::Coordinator::new(COORDINATOR_PATH);
+        // coordinator.launch().expect("TODO: panic message");
+        //
+        // let client = reqwest::Client::new();
+        // let mut topology = None;
+        // while topology.is_none() {
+        //     //topology = dbg!(topology::get_topology().ok());
+        //     topology = dbg!(client.get("http://127.0.0.1:8081/v1/nes/topology").send().await.ok());
+        // }
+        // let mut topology = topology.unwrap();
+        // assert_eq!(topology.get_nodes().len(), 1);
+        // let mut worker = worker::Worker::new(WORKER_PATH, None);
+        // worker.launch().expect("TODO: panic message");
+        //
+        // //todo: add timeout
+        // while topology.get_nodes().len() == 1 {
+        //     //topology = topology::get_topology().ok().unwrap();
+        //     topology = dbg!(client.get("http://127.0.0.1:8081/v1/nes/topology").await.ok()).unwrap();
+        // }
+        // assert_eq!(topology.get_nodes().len(), 2);
+        //
+        // coordinator.kill().expect("TODO: panic message");
+        // worker.kill().expect("TODO: panic message");
     }
 
 
