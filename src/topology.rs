@@ -15,8 +15,8 @@ pub struct Edge {
 
 #[derive(Serialize, Deserialize, Debug)]
 pub struct Location {
-    latitude: f64,
-    longitude: f64
+    pub latitude: f64,
+    pub longitude: f64
 }
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -45,6 +45,12 @@ pub struct Node {
     ip_address: net::IpAddr,
     location: Option<Location>,
     nodeType: NodeSpatialType,
+}
+
+impl Node {
+    pub fn get_location(&self) -> Option<&Location> {
+        self.location.as_ref()
+    }
 }
 
 #[derive(Serialize, Deserialize, Debug)]
