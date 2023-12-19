@@ -7,13 +7,24 @@ use crate::launch::CommandLineArgument;
 pub type TopologyNodeId = usize;
 
 
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize, Debug, Hash, Eq, PartialEq, Clone, Copy)]
 pub struct Edge {
     source: TopologyNodeId,
     target: TopologyNodeId
 }
 
-#[derive(Serialize, Deserialize, Debug)]
+impl Edge {
+    pub fn get_source(&self) -> TopologyNodeId {
+        self.source
+    }
+
+    pub fn get_target(&self) -> TopologyNodeId {
+        self.target
+    }
+
+}
+
+#[derive(Serialize, Deserialize, Debug, PartialEq, Copy, Clone)]
 pub struct Location {
     pub latitude: f64,
     pub longitude: f64
@@ -47,9 +58,16 @@ pub struct Node {
     nodeType: NodeSpatialType,
 }
 
-impl Node {
-    pub fn get_location(&self) -> Option<&Location> {
+pub trait GeoNode {
+    fn get_location(&self) -> Option<&Location>;
+    fn get_id(&self) -> TopologyNodeId;
+}
+impl GeoNode for Node {
+    fn get_location(&self) -> Option<&Location> {
         self.location.as_ref()
+    }
+    fn get_id(&self) -> TopologyNodeId {
+        self.id
     }
 }
 
@@ -57,6 +75,15 @@ impl Node {
 pub struct MobileNode {
     id: TopologyNodeId,
     location: Location,
+}
+
+impl GeoNode for MobileNode {
+    fn get_location(&self) -> Option<&Location> {
+        Some(&self.location)
+    }
+    fn get_id(&self) -> TopologyNodeId {
+        self.id
+    }
 }
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -76,6 +103,9 @@ impl Topology {
         &self.nodes
     }
 
+    pub fn get_edges(&self) -> &Vec<Edge> {
+        &self.edges
+    }
 }
 
 // pub fn get_topology() -> Result<Topology, Box<dyn std::error::Error>> {
@@ -101,7 +131,22 @@ impl Topology {
 
 #[derive(Serialize, Deserialize)]
 pub struct AllMobile {
-    pub edges: Vec<Edge>,
-    pub nodes: Vec<MobileNode>,
+    edges: Vec<Edge>,
+    nodes: Vec<MobileNode>,
 }
 
+impl AllMobile {
+    pub fn empty() -> Self {
+        Self {
+            edges: vec![],
+            nodes: vec![]
+        }
+    }
+    pub fn get_nodes(&self) -> &Vec<MobileNode> {
+        &self.nodes
+    }
+
+    pub fn get_edges(&self) -> &Vec<Edge> {
+        &self.edges
+    }
+}
