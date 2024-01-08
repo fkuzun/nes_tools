@@ -3,6 +3,7 @@ use std::io::Read;
 pub mod topology;
 pub mod launch;
 pub mod config;
+pub mod query;
 
 pub fn add(left: usize, right: usize) -> usize {
     left + right
