@@ -4,8 +4,7 @@ use std::ops::Add;
 use serde::{Serialize, Deserialize};
 use crate::launch::CommandLineArgument;
 
-pub type TopologyNodeId = usize;
-
+pub type TopologyNodeId = u64;
 
 #[derive(Serialize, Deserialize, Debug, Hash, Eq, PartialEq, Clone, Copy)]
 pub struct Edge {
