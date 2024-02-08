@@ -39,17 +39,18 @@ impl Worker {
 }
 
 //todo: check if this code duplication with coordinator can be omitted even further (check chapter on oop patterns)
-impl Launch for Worker {
-    fn launch(&mut self) -> Result<(), Box<dyn std::error::Error>> {
-        self.process = Some(self.command.spawn()?);
-        Ok(())
-    }
-
-    fn launch_with_pipe(&mut self) -> Result<(), Box<dyn std::error::Error>> {
-        todo!()
-    }
-
-    fn kill(&mut self) -> Result<(), Box<dyn std::error::Error>> {
-        self.process.take().ok_or("No process exists")?.kill().or(Err("Could not kill process".into()))
-    }
-}
+// impl Launch for Worker {
+//
+//     fn launch(&mut self) -> Result<(), Box<dyn std::error::Error>> {
+//         *self.get_process() = Some(self.get_command().spawn()?);
+//         Ok(())
+//     }
+//
+//     fn launch_with_pipe(&mut self) -> Result<(), Box<dyn std::error::Error>> {
+//         todo!()
+//     }
+//
+//     fn kill(&mut self) -> Result<(), Box<dyn std::error::Error>> {
+//         self.get_process().take().ok_or("No process exists")?.kill().or(Err("Could not kill process".into()))
+//     }
+// }

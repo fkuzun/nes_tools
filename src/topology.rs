@@ -149,3 +149,30 @@ impl AllMobile {
         &self.edges
     }
 }
+
+#[derive(Serialize, Deserialize)]
+pub struct AddEdgeRequest {
+    #[serde(rename = "parentId")]
+    pub parent_id: u64,
+    #[serde(rename = "childId")]
+    pub child_id: u64,
+}
+
+#[derive(Serialize, Deserialize)]
+pub struct AddEdgeReply {
+    pub success: bool
+}
+
+
+#[derive(Serialize, Deserialize)]
+pub struct ExecuteQueryRequest {
+    #[serde(rename = "userQuery")]
+    pub user_query: String,
+    pub placement: PlacementStrategyType,
+}
+
+#[derive(Serialize, Deserialize)]
+pub enum PlacementStrategyType {
+    BottomUp,
+    TopDown,
+}
