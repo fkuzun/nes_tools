@@ -164,14 +164,14 @@ pub struct AddEdgeReply {
 }
 
 
-#[derive(Serialize, Deserialize)]
+#[derive(Serialize, Deserialize, Debug)]
 pub struct ExecuteQueryRequest {
     #[serde(rename = "userQuery")]
     pub user_query: String,
     pub placement: PlacementStrategyType,
 }
 
-#[derive(Serialize, Deserialize)]
+#[derive(Serialize, Deserialize, Debug)]
 pub enum PlacementStrategyType {
     BottomUp,
     TopDown,
